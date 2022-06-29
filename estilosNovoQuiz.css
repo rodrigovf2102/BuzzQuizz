@@ -1,0 +1,39 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA;
+}
+
+.Topo {
+    font-size: 37px;
+    font-weight: 700;
+    color: #FFFFFF;
+    background-color: #EC362D;
+    width: 100%;
+    height: 69px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.CriarQuizz {
+    margin-top: 140px;
+    display: flex;
+    justify-content: center;
+}
+
+.CriarQuizz span {
+    font-size: 23px;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
+.Container {
+    background-color: #FFFFFF;
+    width: 600px;
+}
