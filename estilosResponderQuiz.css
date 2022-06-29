@@ -2,8 +2,6 @@
     box-sizing: border-box;
 }
 
-body {}
-
 .ResponderQuiz {
     display: flex;
     flex-direction: column;
@@ -160,4 +158,8 @@ body {}
     justify-content: center;
     align-items: center;
     margin-bottom: 85px;
+}
+
+.hidden {
+    display: none;
 }
