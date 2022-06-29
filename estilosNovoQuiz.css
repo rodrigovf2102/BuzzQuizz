@@ -8,18 +8,68 @@ body {
 }
 
 .CriarQuizz {
-    margin-top: 140px;
+    width: 600px;
+    margin: 140px auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .CriarQuizz span {
     font-size: 23px;
     font-weight: 700;
     font-family: 'Roboto', sans-serif;
+    margin-bottom: 27px;
+
 }
 
 .Container {
     background-color: #FFFFFF;
     width: 600px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.setup {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.setup input {
+    height: 46px;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 400;
+    outline: none;
+    background-color: #FFFFFF;
+    padding-left: 14px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    color: #BABABA;
+}
+
+::placeholder {
+    color: #BABABA;
+}
+
+.botao-criar {
+    display: flex;
+    background-color: #EC362D;
+    width: auto;
+    height: 54px;
+    border-radius: 15px;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    margin-top: 85px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 25px;
+    font-family: 'Roboto', sans-serif;
+    padding: 0 40px;
+    color: #FFF5F4;
 }
