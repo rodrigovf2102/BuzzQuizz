@@ -3,6 +3,9 @@ body {
     background-color: #FAFAFA;
 }
 
+.hidden {
+    display: none;
+}
 
 .CriarQuizz {
     margin-top: 140px;

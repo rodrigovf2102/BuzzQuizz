@@ -163,3 +163,6 @@
     margin-bottom: 85px;
 }
 
+.hidden {
+    display: none;
+}
