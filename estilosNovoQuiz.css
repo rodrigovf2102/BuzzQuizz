@@ -8,7 +8,7 @@ body {
 }
 
 .CriarQuizz {
-    width: 600px;
+    max-width: 600px;
     margin: 140px auto;
     display: flex;
     flex-direction: column;
@@ -26,7 +26,7 @@ body {
 
 .Container {
     background-color: #FFFFFF;
-    width: 600px;
+    width: 100%;
     height: auto;
     box-sizing: border-box;
     padding: 20px;
@@ -62,6 +62,22 @@ body {
     color: #BABABA;
 }
 
+textarea {
+    height: auto;
+    font-size: 19px;
+    font-style: italic;
+    font-weight: 400;
+    outline: none;
+    background-color: #FFFFFF;
+    padding-left: 14px;
+    padding-top: 10px;
+    border: 1px solid #D1D1D1;
+    border-radius: 5px;
+    color: #BABABA;
+    font-family: 'Roboto', sans-serif;
+    resize: none;
+}
+
 .botao-criar {
     display: flex;
     background-color: #EC362D;
@@ -80,4 +96,12 @@ body {
     font-family: 'Roboto', sans-serif;
     padding: 0 40px;
     color: #FFF5F4;
+}
+
+@media (max-width: 1100px) {
+
+.botao-criar {
+    font-size: 18px;
+}
+
 }
