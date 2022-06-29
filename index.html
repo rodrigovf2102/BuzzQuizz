@@ -15,7 +15,7 @@
 <body>
     <header class="topo">BuzzQuiz</header>
 
-    <div class="CriarQuizz Info">
+    <div class="CriarQuizz Info hidden">
         <span>Comece pelo começo</span>
 
         <div class="Container">
@@ -28,6 +28,46 @@
         </div>
 
         <button class="botao-criar">Prosseguir para criar perguntas</button>
+
+    </div>
+
+    <div class="CriarQuizz Perg-Quizz">
+        <span>Crie suas perguntas</span>
+
+        <div class="Container">
+
+            <h1>Pergunta 1</h1>
+            <div class="setup perguntas">
+                <input type="text" required minlength="20" maxlength="65" placeholder="Texto da pergunta">
+                <input type="text" required maxlength="7" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" placeholder="Cor de fundo da pergunta">
+            </div>
+
+            <h1>Resposta correta</h1>
+            <div class="setup perguntas">
+                <input type="text" required minlength="1" placeholder="Resposta correta">
+                <input type="url" required placeholder="URL da imagem">
+            </div>
+
+            <h1>Respostas incorretas</h1>
+            <div class="setup perguntas">
+                <input type="text" required minlength="1" placeholder="Resposta incorreta 1">
+                <input type="url" placeholder="URL da imagem 1">
+            </div>
+            <br>
+            <br>
+            <div class="setup perguntas">
+                <input type="text" required minlength="1" placeholder="Resposta incorreta 2">
+                <input type="url" placeholder="URL da imagem 2">
+            </div>
+            <br>
+            <br>
+            <div class="setup perguntas">
+                <input type="text" required minlength="1" placeholder="Resposta incorreta 3">
+                <input type="url" placeholder="URL da imagem 3">
+            </div>
+        </div>
+
+        <button class="botao-criar">Prosseguir para criar níveis</button>
 
     </div>
 

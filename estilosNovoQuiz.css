@@ -38,6 +38,13 @@ body {
     gap: 9px;
 }
 
+.Container h1 {
+    font-size: 21px;
+    margin: 15px 0;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+
 .setup input {
     height: 46px;
     font-size: 19px;
