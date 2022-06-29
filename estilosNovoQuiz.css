@@ -66,6 +66,7 @@ body {
     display: flex;
     background-color: #EC362D;
     width: auto;
+    min-width: 325px;
     height: 54px;
     border-radius: 15px;
     border: none;
