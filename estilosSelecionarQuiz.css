@@ -1,0 +1,86 @@
+.corpo-inicioQuizz {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.SeusQuizz {
+    width: 1051px;
+    height: 181px;
+    background: #FAFAFA;
+    border: 1px dashed #D5D5D5;
+    border-radius: 5px;
+    margin: 146px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.SeusQuizz>:nth-child(1) {
+    color: #B9B9B9;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    width: 250px;
+    display: flex;
+    text-align: center;
+}
+
+.SeusQuizz>:nth-child(2) {
+    width: 151px;
+    height: 40px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    color: #EC362D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    border: 1px dashed #EC362D;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+.TodosOsQuizz {
+    width: 1051px;
+    background-color: antiquewhite;
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ImagemQuizz{
+    margin-top:25px ;
+    Width:335px;
+    Height: 181px;
+    position: relative;
+    margin-right: 15px;
+}
+
+.ImagemQuizz img{
+    width: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+
+.ImagemQuizz div {
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    color:#FFFFFF;;
+    font-weight: 400;
+    font-size: 19px;
+    line-height: 22px;
+}
+
+.TodosOsQuizz>:nth-child(1){
+   position: absolute;
+}
