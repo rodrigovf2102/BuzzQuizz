@@ -2,6 +2,7 @@ let TituloQuizz = "";
 let UrlQuizz = "";
 let PerguntasQuizz = 0;
 let NiveisQuizz = 0;
+let NovoID = null;
 
 let QuizzCRIADO = {
     title: "",
@@ -85,7 +86,7 @@ function CriarPerguntas() {
         
     }
 
-    mainPerg += `<button class="botao-criar">Prosseguir para criar níveis</button>`
+    mainPerg += `<button class="botao-criar" onclick="ValidaçãoPerguntas()">Prosseguir para criar níveis</button>`
 
 }
 
@@ -131,7 +132,7 @@ function CriarNiveis() {
         
     }
 
-    mainNiveis.innerHTML += `<button class="botao-criar">Finalizar Quizz</button>`;
+    mainNiveis.innerHTML += `<button class="botao-criar" onclick="ValidaçãoNiveis()">Finalizar Quizz</button>`;
 }
 
 function ValidaçãoNiveis() {
@@ -219,6 +220,22 @@ function SalvarNiveis() {
     }
 }
 
+function FinalizarQuizz() {
+
+    const mainQuizzPronto = document.querySelector('.Pronto-Quizz');
+
+    mainQuizzPronto.innerHTML = `
+    <span>Seu quizz está pronto!</span>
+
+    <div class="ImagemCriarQuizz">
+        <img src="${UrlQuizz}">
+        <div>${TituloQuizz}</div>
+    </div>
+    <div class="botao-reiniciar">Acessar Quizz</div>
+    <div class="botao-voltar">Volte para home</div>`
+
+}
+
 function AgruparInfoQuizz() {
     
     SalvarPerguntas();
@@ -231,6 +248,28 @@ function AgruparInfoQuizz() {
         levels: QuizzCRIADO.levels,
     };
 
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes',data);
+    promessa.then(MostrarQuizz);
 
+
+}
+
+function MostrarQuizz(IDnovoQuizz) {
+    NovoID = IDnovoQuizz.data.id;
+    GuardarQuizz(NovoID.toString());
+    FinalizarQuizz();
+}
+
+function GuardarQuizz(id) {
+    const ArmazLoc = localStorage.getItem("MeusQuizzes");
+    let MeuQuizzConv = [];
+
+    if (ArmazLoc) {
+        MeuQuizzConv = JSON.parse(ArmazLoc);
+    }
+
+    MeuQuizzConv.push(id);
+    MeuQuizzConv = JSON.stringify(MeuQuizzConv);
+    localStorage.setItem("MeusQuizzes", MeuQuizzConv);
 
 }
