@@ -61,6 +61,9 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
+.alternativa{
+    width: 330px;
+}
 .corpo-pergunta> :nth-child(1) {
     display: flex;
     background-color: #434CA0;
@@ -91,7 +94,7 @@
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
-    line-height: 23px;
+    line-height: 16px;
 }
 
 .corpo-acertos {
@@ -256,5 +259,9 @@
         font-size: 18px;
         width: 220px;
         height: 44px;
+    }
+    .alternativa{
+        width: 155px;
+        height: 155px;
     }
 }
