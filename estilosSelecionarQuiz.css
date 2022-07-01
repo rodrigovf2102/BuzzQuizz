@@ -5,6 +5,45 @@
     flex-direction: column;
     align-items: center;
 }
+.SeusQuizzCriado{
+    margin-top: 146px;
+    margin-bottom: 70px;
+    display: flex;
+    width: 1051px;
+    flex-wrap: wrap;
+}
+.SeusQuizzCriadoTopo{
+    display: flex;
+    width: 100%;
+}
+.SeusQuizzCriado img{
+    margin-right: 10px;
+    Width:335px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.SeusQuizzCriadoTopo>:nth-child(1){
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    margin-right: 17px;
+    padding-top: 5px;
+}
+
+.SeusQuizzCriadoTopo> :nth-child(2){
+    background-color: #EC362D;
+    width: 30px;
+    height: 30px;
+    border-radius: 500px;
+    color: white;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .SeusQuizz {
     width: 1051px;
@@ -79,8 +118,33 @@
     font-weight: 400;
     font-size: 19px;
     line-height: 22px;
+    font-family: 'Roboto';
 }
 
 .TodosOsQuizz>:nth-child(1){
    position: absolute;
+}
+
+@media (max-width:1100px){
+    .SeusQuizz {
+        width: 340px;
+        margin-top: 60px;
+        margin-bottom: 35px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .TodosOsQuizz {
+        width: 340px;
+    }
+    .SeusQuizzCriado{
+        width: 340px;
+        margin-bottom: 35px;
+        margin-top: 100px;
+    }
+    .SeusQuizzCriado >:nth-child(2){
+        width: 340px;
+    }
+
 }
