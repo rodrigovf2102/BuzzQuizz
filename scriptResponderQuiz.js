@@ -108,63 +108,67 @@ let quizz = {
         }
     ]
 }
-
 let acertos = 0;
 let level = { levelAlcançado: quizz.levels[0], acertosAlcançado: acertos };
 let responderQuiz = document.querySelector(".ResponderQuiz");
-responderQuiz.innerHTML =
-    `<div class="imgTopo">
-    <img>
-    <div></div>
-</div>`;
-for (let i = 0; i < quizz.questions.length; i++) {
-    responderQuiz.innerHTML +=
-        `<div class="corpo-pergunta">
-<div></div>
-<div class="alternativa" onclick="selecionarResposta(this)">
-    <img>
-    <div></div>
-</div>
-<div class="alternativa" onclick="selecionarResposta(this)">
-    <img>
-    <div></div>
-</div>
-<div class="alternativa" onclick="selecionarResposta(this)">
-    <img>
-    <div></div>
-</div>
-<div class="alternativa" onclick="selecionarResposta(this)">
-    <img>
-    <div></div>
-</div>
-</div>`;
-}
+renderizarPagina();
 
-let element = document.querySelector(".imgTopo :nth-child(1)");
-element.src = quizz.image;
-element = document.querySelector(".imgTopo :nth-child(2)");
-element.innerHTML = quizz.title;
-for (let i = 0; i < quizz.questions.length; i++) {
-    element = document.querySelectorAll(".corpo-pergunta >:nth-child(1)");
-    console.log(element, quizz.questions[i].title);
-    element[i].innerHTML = quizz.questions[i].title;
-    element[i].style.backgroundColor = quizz.questions[i].color;
 
-    numeroDePerguntas = quizz.questions[i].answers.length;
+function renderizarPagina() {
+    responderQuiz.innerHTML =
+        `<div class="imgTopo">
+            <img>
+            <div></div>
+        </div>`;
+    for (let i = 0; i < quizz.questions.length; i++) {
+        responderQuiz.innerHTML +=
+            `<div class="corpo-pergunta">
+                <div></div>
+                <div class="alternativa" onclick="selecionarResposta(this)">
+                        <img>
+                        <div></div>
+                </div>
+                <div class="alternativa" onclick="selecionarResposta(this)">
+                        <img>
+                        <div></div>
+                </div>
+                <div class="alternativa" onclick="selecionarResposta(this)">
+                    <img>
+                    <div></div>
+                </div>
+                <div class="alternativa" onclick="selecionarResposta(this)">
+                    <img>
+                    <div></div>
+                </div>
+            </div>`;
+    }
 
-    for (let j = 0; j < numeroDePerguntas; j++) {
-        element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(1)`);
-        element[i].src = quizz.questions[i].answers[j].image;
-        element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(2)`);
-        element[i].innerHTML = quizz.questions[i].answers[j].text;
+    let element = document.querySelector(".imgTopo :nth-child(1)");
+    element.src = quizz.image;
+    element = document.querySelector(".imgTopo :nth-child(2)");
+    element.innerHTML = quizz.title;
+    for (let i = 0; i < quizz.questions.length; i++) {
+        element = document.querySelectorAll(".corpo-pergunta >:nth-child(1)");
+        element[i].innerHTML = quizz.questions[i].title;
+        element[i].style.backgroundColor = quizz.questions[i].color;
+
+        numeroDePerguntas = quizz.questions[i].answers.length;
+
+        for (let j = 0; j < numeroDePerguntas; j++) {
+            element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(1)`);
+            element[i].src = quizz.questions[i].answers[j].image;
+            element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(2)`);
+            element[i].innerHTML = quizz.questions[i].answers[j].text;
+        }
+    }
+
+    for (let i = 0; i < quizz.levels.length; i++) {
+        if (acertos > quizz.levels[i].minValue) {
+            level = { levelAlcançado: quizz.levels[i], acertosAlcançado: acertos };
+        }
     }
 }
 
-for (let i = 0; i < quizz.levels.length; i++) {
-    if (acertos > quizz.levels[i].minValue) {
-        level = { levelAlcançado: quizz.levels[i], acertosAlcançado: acertos };
-    }
-}
 
 function selecionarResposta(resposta) {
     element = resposta.parentNode.querySelector("div").innerHTML.toString();
@@ -200,21 +204,21 @@ function verificarResposta(resposta) {
     let respostas = document.querySelectorAll(".respondido").length;
     let perguntas = quizz.questions.length;
     if (respostas === perguntas) {
-        level.acertosAlcançado = ((acertos/perguntas)*100).toFixed(2);
-        for(let i=0;i<quizz.levels.length;i++){
-            if(level.acertosAlcançado>quizz.levels[i].minValue){
-                level.levelAlcançado=quizz.levels[i];
+        level.acertosAlcançado = ((acertos / perguntas) * 100).toFixed(2);
+        for (let i = 0; i < quizz.levels.length; i++) {
+            if (level.acertosAlcançado > quizz.levels[i].minValue) {
+                level.levelAlcançado = quizz.levels[i];
             }
         }
-        
+
         responderQuiz.innerHTML +=
             `<div class="corpo-acertos">
                 <div></div>
                 <img>
                 <div></div>
             </div>
-            <div class="botao-reiniciar">Reiniciar Quizz</div>
-            <div class="botao-voltar">Volte para home</div>`;
+            <div class="botao-reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</div>
+            <div class="botao-voltar" onclick="voltarHome()">Volte para home</div>`;
 
         element = document.querySelector(".corpo-acertos :nth-child(1)");
         element.innerHTML = `${level.acertosAlcançado}% de acerto: ${level.levelAlcançado.title}`
@@ -225,17 +229,11 @@ function verificarResposta(resposta) {
     }
 }
 
+function reiniciarQuizz(){
+    renderizarPagina();
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+function voltarHome(){
+    document.querySelector(".ResponderQuiz").classList.add("hidden");
+    document.querySelector(".corpo-inicioQuizz").classList.remove("hidden");
+}
