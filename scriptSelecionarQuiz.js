@@ -14,7 +14,6 @@ function processarQuizzes(resposta){
 function renderizarTodosQuizzes(){
     let elemento = document.querySelector(".TodosOsQuizz");
     elemento.innerHTML = "<div>Todos os Quizzes</div>";
-    console.log(quizzes,quizzes.length);
     for(let i=0;i<quizzes.length;i++){
         elemento.innerHTML +=  
         `<div class="ImagemQuizz" onclick="entrarNoQuizz(this)">
@@ -22,7 +21,6 @@ function renderizarTodosQuizzes(){
             <div>${quizzes[i].title}</div>
         </div>`
     }
-    
 }
 
 function entrarNoQuizz(elemento){

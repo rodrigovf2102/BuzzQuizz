@@ -115,33 +115,38 @@ renderizarPagina();
 
 
 function renderizarPagina() {
+    acertos = 0;
+    level = { levelAlcançado: quizz.levels[0], acertosAlcançado: acertos }
     responderQuiz.innerHTML =
         `<div class="imgTopo">
             <img>
             <div></div>
         </div>`;
+
     for (let i = 0; i < quizz.questions.length; i++) {
         responderQuiz.innerHTML +=
             `<div class="corpo-pergunta">
-                <div></div>
-                <div class="alternativa" onclick="selecionarResposta(this)">
+                    <div></div>
+                    <div class="alternativa" onclick="selecionarResposta(this)">
+                            <img>
+                            <div></div>
+                    </div>
+                    <div class="alternativa" onclick="selecionarResposta(this)">
+                            <img>
+                            <div></div>
+                    </div>
+                    <div class="alternativa" onclick="selecionarResposta(this)">
                         <img>
                         <div></div>
-                </div>
-                <div class="alternativa" onclick="selecionarResposta(this)">
+                    </div>
+                    <div class="alternativa" onclick="selecionarResposta(this)">
                         <img>
                         <div></div>
-                </div>
-                <div class="alternativa" onclick="selecionarResposta(this)">
-                    <img>
-                    <div></div>
-                </div>
-                <div class="alternativa" onclick="selecionarResposta(this)">
-                    <img>
-                    <div></div>
-                </div>
-            </div>`;
+                    </div>
+                </div>`;
     }
+
+
 
     let element = document.querySelector(".imgTopo :nth-child(1)");
     element.src = quizz.image;
@@ -167,34 +172,43 @@ function renderizarPagina() {
             level = { levelAlcançado: quizz.levels[i], acertosAlcançado: acertos };
         }
     }
+    let corpoPergunta = document.querySelectorAll(".corpo-pergunta img");
+    for (let i = 0; i < corpoPergunta.length; i++) {
+        if (corpoPergunta[i].src === "") {
+            corpoPergunta[i].parentNode.remove();
+        }
+    }
 }
 
 
 function selecionarResposta(resposta) {
     element = resposta.parentNode.querySelector("div").innerHTML.toString();
-    for (let i = 0; i < quizz.questions.length; i++) {
-        if (quizz.questions[i].title.toString() === element) {
-            for (let j = 0; j < quizz.questions[i].answers.length; j++) {
-                if (quizz.questions[i].answers[j].isCorrectAnswer) {
-                    element = resposta.parentNode.querySelectorAll(".alternativa");
-                    element[j].classList.add("letra-verde");
-                    if (element[j].querySelector(".fundo-branco") === null) {
-                        element[j].innerHTML += `<div class="fundo-branco"></div>`;
+    if (resposta.parentNode.querySelector(".respondido") === null) {
+        for (let i = 0; i < quizz.questions.length; i++) {
+            if (quizz.questions[i].title.toString() === element) {
+                for (let j = 0; j < quizz.questions[i].answers.length; j++) {
+                    if (quizz.questions[i].answers[j].isCorrectAnswer) {
+                        element = resposta.parentNode.querySelectorAll(".alternativa");
+                        element[j].classList.add("letra-verde");
+                        if (element[j].querySelector(".fundo-branco") === null) {
+                            element[j].innerHTML += `<div class="fundo-branco"></div>`;
+                        }
                     }
-                }
-                else {
-                    element = resposta.parentNode.querySelectorAll(".alternativa");
-                    element[j].classList.add("letra-vermelha");
-                    if (element[j].querySelector(".fundo-branco") === null) {
-                        element[j].innerHTML += `<div class="fundo-branco"></div>`;
+                    else {
+                        element = resposta.parentNode.querySelectorAll(".alternativa");
+                        element[j].classList.add("letra-vermelha");
+                        if (element[j].querySelector(".fundo-branco") === null) {
+                            element[j].innerHTML += `<div class="fundo-branco"></div>`;
+                        }
                     }
                 }
             }
         }
+        resposta.querySelector(".fundo-branco").remove("fundo-branco");
+        resposta.classList.add("respondido");
+        verificarResposta(resposta);
     }
-    resposta.querySelector(".fundo-branco").remove("fundo-branco");
-    resposta.classList.add("respondido");
-    verificarResposta(resposta);
+
 }
 
 function verificarResposta(resposta) {
@@ -229,11 +243,11 @@ function verificarResposta(resposta) {
     }
 }
 
-function reiniciarQuizz(){
+function reiniciarQuizz() {
     renderizarPagina();
 }
 
-function voltarHome(){
+function voltarHome() {
     document.querySelector(".ResponderQuiz").classList.add("hidden");
     document.querySelector(".corpo-inicioQuizz").classList.remove("hidden");
 }

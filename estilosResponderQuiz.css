@@ -31,7 +31,8 @@
     height: 227px;
     position: relative;
     margin-top: 69px;
-    
+    display: flex;
+    justify-content: center;
 }
 
 .imgTopo img {
@@ -42,7 +43,6 @@
 }
 
 .imgTopo div {
-    left: calc(50% - 200px);
     top: 40%;
     position: absolute;
     color: #FFFFFF;
@@ -54,7 +54,7 @@
 .corpo-pergunta {
     margin-top: 42px;
     width: 759px;
-    height: 676px;
+    height: auto;
     padding: 34px;
     display: flex;
     flex-wrap: wrap;
@@ -196,8 +196,7 @@
     }
     .imgTopo div{
         font-size: 19px;
-        left: calc(50% - 100px);
-        top: 45%;
+        
         height: 142px;
     }
     .imgTopo img {
@@ -206,7 +205,7 @@
     .corpo-pergunta {
         margin-top: 24px;
         width: 375px;
-        height: 436px;
+        height: auto;
         padding: 18px;
     }
     .corpo-pergunta> :nth-child(1) {
