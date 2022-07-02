@@ -133,11 +133,35 @@ function CriarNiveis() {
 
 function ValidaçãoNiveis() {
 
+    let InputMain = document.querySelectorAll('.Niveis-Quizz input');
+    let InputC = 0
+    let InputZero = 0;
 
+    for (let i = 0; i < InputMain.length; i++) {
+        if (InputMain[i].checkValidity()) {
+            InputC++;
+        }
+        
+    }
+
+    for (let i = 0; i < InputMain.length; i++) {
+        if (InputMain[i].value === '0') {
+            InputZero = 1;
+            
+        }
+        
+    }
+
+    if (InputC === InputMain.length && InputZero === 1) {
         document.querySelector(".Niveis-Quizz").classList.add('hidden');
         document.querySelector(".Pronto-Quizz").classList.remove('hidden');
         AgruparInfoQuizz();
-   
+    }
+
+    else {
+        alert("Dados Inválidos! Preencha os dados corretamente!");
+    }
+
 }
 
 
@@ -363,8 +387,6 @@ function BackHome() {
     document.querySelector(".corpo-inicioQuizz").classList.remove("hidden");
 }
 
-function checkURL(url) {
-    const rule =
-      '/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/';
-    return rule.test(url);
-  }
+function ReloadPage() {
+    window.location.reload();
+}

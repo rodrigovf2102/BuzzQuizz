@@ -3,6 +3,10 @@ body {
     background-color: #FAFAFA;
 }
 
+header h1 {
+    cursor: pointer;
+}
+
 .hidden {
     display: none;
 }
@@ -96,6 +100,11 @@ textarea {
     font-family: 'Roboto', sans-serif;
     padding: 0 40px;
     color: #FFF5F4;
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .ImagemCriarQuizz{

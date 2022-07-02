@@ -35,7 +35,7 @@ function checkMeusQuizzes() {
 
         UserQuizzes.innerHTML = `<div class="SeusQuizzCriadoTopo">
         <div>Seus Quizzes</div>
-        <div>+</div>
+        <div class="pointer" onclick="CriarQuizz()">+</div>
     </div>`;
 
         PegarUserQuizzes(ArmazLoc);
@@ -60,7 +60,7 @@ function renderizarUserQuizzes(ms) {
     const QuizzUser = document.querySelector('.SeusQuizzCriado');
     const dados = ms.data;
 
-    QuizzUser.innerHTML += `<div class="ImagemQuizz">
+    QuizzUser.innerHTML += `<div class="ImagemQuizz" onclick="entrarNoQuizz(this)">
     <img src="${dados.image}">
     <div>${dados.title}</div>
 </div>`
