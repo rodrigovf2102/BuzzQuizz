@@ -28,10 +28,10 @@ function renderizarTodosQuizzes(){
 }
 
 function checkMeusQuizzes() {
-    const Armaz = localStorage.getItem("MeusQuizzes");
+    const ArmazLoc = localStorage.getItem("MeusQuizzes");
     const UserQuizzes = document.querySelector('.SeusQuizzCriado');
 
-    if (Armaz) {
+    if (ArmazLoc) {
         document.querySelector('.SeusQuizzCriado').classList.remove('hidden');
         document.querySelector('.SeusQuizz').classList.add('hidden');
 
@@ -51,7 +51,7 @@ function PegarUserQuizzes(ArmazLoc) {
     ArmazLoc = JSON.parse(ArmazLoc);
     for (let i = 0; i < ArmazLoc.length; i++) {
     
-        const resposta = axios.get(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes${ArmazLoc[i]}`);
+        const resposta = axios.get(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/${ArmazLoc[i]}`);
         resposta.then(renderizarUserQuizzes);
         
     }

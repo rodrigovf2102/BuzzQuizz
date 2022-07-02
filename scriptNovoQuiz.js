@@ -4,12 +4,8 @@ let PerguntasQuizz = 0;
 let NiveisQuizz = 0;
 let NovoID = null;
 
-let QuizzCRIADO = {
-    title: "",
-    image: "",
-    questions: [],
-    levels: [],
-};
+let QuizzCRIADO = null;
+    
 
 
 function CriarQuizz() {
@@ -50,43 +46,43 @@ function CriarPerguntas() {
     mainPerg.innerHTML = "<span>Crie suas perguntas</span>";
 
     for (let i = 1; i <= PerguntasQuizz; i++) {
-        mainPerg += `<div class="Container">
+        mainPerg.innerHTML += `<div class="Container">
 
         <h1>Pergunta ${i}</h1>
         <div class="setup perguntas">
-            <input type="text" name="Texto-Pergunta-${i}" required minlength="20" maxlength="65" placeholder="Texto da pergunta">
-            <input type="text" name="Cor-Pergunta-${i}" required maxlength="7" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" placeholder="Cor de fundo da pergunta">
+            <input type="text" name="Texto da Pergunta" required minlength="20" maxlength="65" placeholder="Texto da pergunta">
+            <input type="text" name="Cor da Pergunta" required maxlength="7" pattern="^#+([a-fA-F0-9]{6}|[a-fA-F0-9]{3})$" placeholder="Cor de fundo da pergunta">
         </div>
 
         <h1>Resposta correta</h1>
         <div class="setup perguntas">
-            <input type="text" name="Resposta-Certa-${i}" required minlength="1" placeholder="Resposta correta">
-            <input type="url" name="Url-Certo-${i}" required placeholder="URL da imagem">
+            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta correta">
+            <input type="url" name="URL Resposta" required placeholder="URL da imagem">
         </div>
 
         <h1>Respostas incorretas</h1>
         <div class="setup perguntas">
-            <input type="text" name="Resposta-${i}-Errada-1" required minlength="1" placeholder="Resposta incorreta 1">
-            <input type="url" name="Url-${i}-Errado-1" placeholder="URL da imagem 1">
+            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 1">
+            <input type="url" name="URL Resposta" placeholder="URL da imagem 1">
         </div>
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="Resposta-${i}-Errada-2" required minlength="1" placeholder="Resposta incorreta 2">
-            <input type="url" name="Url-${i}-Errado-2" placeholder="URL da imagem 2">
+            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 2">
+            <input type="url" name="URL Resposta" placeholder="URL da imagem 2">
         </div>
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="Resposta-${i}-Errada-3" required minlength="1" placeholder="Resposta incorreta 3">
-            <input type="url" name="Url-${i}-Errado-3" placeholder="URL da imagem 3">
+            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 3">
+            <input type="url" name="URL Resposta" placeholder="URL da imagem 3">
         </div>
     </div>`
 
         
     }
 
-    mainPerg += `<button class="botao-criar" onclick="ValidaçãoPerguntas()">Prosseguir para criar níveis</button>`
+    mainPerg.innerHTML += `<button class="botao-criar" onclick="ValidaçãoPerguntas()">Prosseguir para criar níveis</button>`
 
 }
 
@@ -122,10 +118,10 @@ function CriarNiveis() {
 
         <h1>Nível ${i}</h1>
         <div class="setup perguntas">
-            <input type="text" name="Titulo-Nivel-${i}" required minlength="10"  placeholder="Título do nível">
-            <input type="number" name="Min-Acerto-${i}" required min="0" max="100" placeholder="% de acerto mínima">
-            <input type="url" name="Url-Nivel-${i}" required placeholder="URL da imagem do nível">
-            <textarea rows="5" name="Descrição-Nivel-${i}" minlength="30" placeholder="Descrição do Nível"></textarea>
+            <input type="text" name="Titulo do Nivel" required minlength="10"  placeholder="Título do nível">
+            <input type="number" name="Porcentagem" required min="0" max="100" placeholder="% de acerto mínima">
+            <input type="url" name="URL Nivel" required placeholder="URL da imagem do nível">
+            <textarea name="Descrição" required rows="5" minlength="30" placeholder="Descrição do Nível"></textarea>
         </div>
 
     </div>`
@@ -136,89 +132,16 @@ function CriarNiveis() {
 }
 
 function ValidaçãoNiveis() {
-    let Inputs = document.querySelector(".Niveis-Quizz input");
-    let ValidInput = 0;
-    let ValidInputMin = 0;
 
-    for (let i = 0; i < Inputs.length; i++) {
-        if(Inputs[i].checkValidity()) {
-            ValidInput++;
-        }
-        if (Inputs[i].value === '0') {
-            ValidInputMin = 1;
-        }
-        
-    }
 
-    if (ValidInput === Inputs.length && ValidInputMin === 1) {
         document.querySelector(".Niveis-Quizz").classList.add('hidden');
-        document.querySelector("Pronto-Quizz").classList.remove('hidden');
+        document.querySelector(".Pronto-Quizz").classList.remove('hidden');
         AgruparInfoQuizz();
-    }
-    else {
-        alert("Dados Inválidos! Preencha os dados corretamente!");
-    }
-
+   
 }
 
-function SalvarPerguntas () {
-    
-    for (let i = 0; i < PerguntasQuizz; i++) {
-        
-        const perguntas = {};
-
-        perguntas.title = document.getElementsByName(`Texto-Pergunta-${i}`);
-        perguntas.color = document.getElementsByName(`Cor-Pergunta-${i}`);
-
-        perguntas.answers = [];
-
-        const RespostaCerta = {
-            text: document.getElementsByName(`Resposta-Certa-${i}`),
-            image: document.getElementsByName(`Url-Certo-${i}`),
-            isCorrectAnswer: true,
-        };
-
-        perguntas.answers.push(RespostaCerta);
 
 
-        for (let index = 1; index <= 3; index++) {
-            const RespostaErrada = {
-                text: document.getElementsByName(`Resposta-${i}-Errada-${index}`),
-                image: document.getElementsByName(`Url-${i}-Errado-${index}`),
-                isCorrectAnswer: false,
-            };
-
-            if (RespostaErrada.text.length === 0) {
-                continue;
-            }
-            
-            perguntas.answers.push(RespostaErrada);
-            
-        }
-        
-        QuizzCRIADO.questions.push(perguntas);
-
-        
-    }
-
-
-}
-
-function SalvarNiveis() {
-    for (let i = 1; i <= NiveisQuizz; i++) {
-
-        const Nivel = {
-            title: document.getElementsByName(`Titulo-Nivel-${i}`),
-            minValue: parseInt(document.getElementsByName(`Min-Acerto-${i}`)),
-            image: document.getElementsByName(`Url-Nivel-${i}`),
-            text: document.getElementsByName(`Descrição-Nivel-${i}`),
-        };
-
-        QuizzCRIADO.levels.push(Nivel);
-        
-        
-    }
-}
 
 function FinalizarQuizz() {
 
@@ -232,27 +155,188 @@ function FinalizarQuizz() {
         <div>${TituloQuizz}</div>
     </div>
     <div class="botao-reiniciar">Acessar Quizz</div>
-    <div class="botao-voltar">Volte para home</div>`
+    <div class="botao-voltar" onclick="BackHome()">Volte para home</div>`;
 
 }
+
+let ArrayPergTit = [];
+let ArrayCorPerg = [];
+let ArrayRespText = [];
+let ArrayRespUrl = [];
+let ArrayNivelTit = [];
+let ArrayNivelUrl = [];
+let ArrayNivelDesc = [];
+let ArrayNivelPorc = [];
 
 function AgruparInfoQuizz() {
-    
-    SalvarPerguntas();
-    SalvarNiveis();
+    const PergTitulo = document.getElementsByName("Texto da Pergunta");
+    const CorTitulo = document.getElementsByName("Cor da Pergunta");
+    const RespTexto = document.getElementsByName("Resposta");
+    const RespUrl = document.getElementsByName("URL Resposta");
+    const NivelTitulo = document.getElementsByName("Titulo do Nivel");
+    const NivelUrl = document.getElementsByName("URL Nivel");
+    const NivelDesc = document.getElementsByName("Descrição");
+    const NivelPorc = document.getElementsByName("Porcentagem");
 
-    const data = {
-        title: TituloQuizz,
-        image: UrlQuizz,
-        questions: QuizzCRIADO.questions,
-        levels: QuizzCRIADO.levels,
-    };
+    for (let i = 0; i < PergTitulo.length; i++) {
+        ArrayPergTit.push(PergTitulo[i].value);
+        
+    }
 
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes',data);
-    promessa.then(MostrarQuizz);
+    for (let i = 0; i < CorTitulo.length; i++) {
+        ArrayCorPerg.push(CorTitulo[i].value);
+        
+    }
 
+    for (let i = 0; i < RespTexto.length; i++) {
+        ArrayRespText.push(RespTexto[i].value);
+        
+    }
+
+    for (let i = 0; i < RespUrl.length; i++) {
+        ArrayRespUrl.push(RespUrl[i].value);
+        
+    }
+
+    for (let i = 0; i < NivelTitulo.length; i++) {
+        ArrayNivelTit.push(NivelTitulo[i].value);
+        
+    }
+
+    for (let i = 0; i < NivelUrl.length; i++) {
+        ArrayNivelUrl.push(NivelUrl[i].value);
+        
+    }
+
+    for (let i = 0; i < NivelDesc.length; i++) {
+        ArrayNivelDesc.push(NivelDesc[i].value);
+        
+    }
+
+    for (let i = 0; i < NivelPorc.length; i++) {
+        ArrayNivelPorc.push(NivelPorc[i].value);
+        
+    }
+
+    EnviarQuizz();
 
 }
+
+function EnviarQuizz() {
+
+    QuizzCRIADO = {
+
+        title: TituloQuizz,
+        image: UrlQuizz,
+        questions: [
+            {
+                title: ArrayPergTit[0],
+                color: ArrayCorPerg[0],
+                answers: [
+                    {
+                        text: ArrayRespText[0],
+                        image: ArrayRespUrl[0],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespText[1],
+                        image: ArrayRespUrl[1],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[2],
+                        image: ArrayRespUrl[2],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[3],
+                        image: ArrayRespUrl[3],
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+
+            {
+                title: ArrayPergTit[1],
+                color: ArrayCorPerg[1],
+                answers: [
+                    {
+                        text: ArrayRespText[4],
+                        image: ArrayRespUrl[4],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespText[5],
+                        image: ArrayRespUrl[5],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[6],
+                        image: ArrayRespUrl[6],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[7],
+                        image: ArrayRespUrl[7],
+                        isCorrectAnswer: false
+                    }
+                ]
+            },
+
+            {
+                title: ArrayPergTit[2],
+                color: ArrayCorPerg[2],
+                answers: [
+                    {
+                        text: ArrayRespText[8],
+                        image: ArrayRespUrl[8],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespText[9],
+                        image: ArrayRespUrl[9],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[10],
+                        image: ArrayRespUrl[10],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespText[11],
+                        image: ArrayRespUrl[11],
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+
+        ],
+
+        levels: [
+            {
+                title: ArrayNivelTit[0],
+                image: ArrayNivelUrl[0],
+                text: ArrayNivelDesc[0],
+                minValue: ArrayNivelPorc[0]
+            },
+
+            {
+                title: ArrayNivelTit[1],
+                image: ArrayNivelUrl[1],
+                text: ArrayNivelDesc[1],
+                minValue: ArrayNivelPorc[1]
+            }
+
+        ]
+
+
+    }
+
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes', QuizzCRIADO);
+    promessa.then(MostrarQuizz);
+
+}
+
 
 function MostrarQuizz(IDnovoQuizz) {
     NovoID = IDnovoQuizz.data.id;
@@ -273,3 +357,14 @@ function GuardarQuizz(id) {
     localStorage.setItem("MeusQuizzes", MeuQuizzConv);
 
 }
+
+function BackHome() {
+    document.querySelector(".Pronto Quizz").classList.add("hidden");
+    document.querySelector(".corpo-inicioQuizz").classList.remove("hidden");
+}
+
+function checkURL(url) {
+    const rule =
+      '/(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/';
+    return rule.test(url);
+  }
