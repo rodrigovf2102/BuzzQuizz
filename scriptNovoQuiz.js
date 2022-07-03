@@ -56,26 +56,26 @@ function CriarPerguntas() {
 
         <h1>Resposta correta</h1>
         <div class="setup perguntas">
-            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta correta">
-            <input type="url" name="URL Resposta" required placeholder="URL da imagem">
+            <input type="text" name="RespostaC" required minlength="1" placeholder="Resposta correta">
+            <input type="url" name="URL RespostaC" required placeholder="URL da imagem">
         </div>
 
         <h1>Respostas incorretas</h1>
         <div class="setup perguntas">
-            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 1">
-            <input type="url" name="URL Resposta" placeholder="URL da imagem 1">
+            <input type="text" name="RespostaE1" required minlength="1" placeholder="Resposta incorreta 1">
+            <input type="url" name="URL RespostaE1" placeholder="URL da imagem 1">
         </div>
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 2">
-            <input type="url" name="URL Resposta" placeholder="URL da imagem 2">
+            <input type="text" name="RespostaE2" required minlength="1" placeholder="Resposta incorreta 2">
+            <input type="url" name="URL RespostaE2" placeholder="URL da imagem 2">
         </div>
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="Resposta" required minlength="1" placeholder="Resposta incorreta 3">
-            <input type="url" name="URL Resposta" placeholder="URL da imagem 3">
+            <input type="text" name="RespostaE3" required minlength="1" placeholder="Resposta incorreta 3">
+            <input type="url" name="URL RespostaE3" placeholder="URL da imagem 3">
         </div>
     </div>`
 
@@ -178,25 +178,45 @@ function FinalizarQuizz() {
         <img src="${UrlQuizz}">
         <div>${TituloQuizz}</div>
     </div>
-    <div class="botao-reiniciar">Acessar Quizz</div>
-    <div class="botao-voltar" onclick="BackHome()">Volte para home</div>`;
+    <div class="botao-reiniciar" onclick="entrarNoQuizz(this)">Acessar Quizz</div>
+    <div class="botao-voltar" onclick="ReloadPage()">Volte para home</div>`;
 
 }
 
 let ArrayPergTit = [];
 let ArrayCorPerg = [];
-let ArrayRespText = [];
-let ArrayRespUrl = [];
+let ArrayRespTextC = [];
+let ArrayRespUrlC = [];
+let ArrayRespTextE1 = [];
+let ArrayRespUrlE1 = [];
+let ArrayRespTextE2 = [];
+let ArrayRespUrlE2 = [];
+let ArrayRespTextE3 = [];
+let ArrayRespUrlE3 = [];
 let ArrayNivelTit = [];
 let ArrayNivelUrl = [];
 let ArrayNivelDesc = [];
 let ArrayNivelPorc = [];
 
+let ArrayQuizz = {
+    title: TituloQuizz,
+    image: UrlQuizz,
+    questions: [],
+    levels: []
+}
+
 function AgruparInfoQuizz() {
     const PergTitulo = document.getElementsByName("Texto da Pergunta");
     const CorTitulo = document.getElementsByName("Cor da Pergunta");
-    const RespTexto = document.getElementsByName("Resposta");
-    const RespUrl = document.getElementsByName("URL Resposta");
+    const RespTextoC = document.getElementsByName("RespostaC");
+    const RespUrlC = document.getElementsByName("URL RespostaC");
+    const RespTextoE1 = document.getElementsByName("RespostaE1");
+    const RespUrlE1 = document.getElementsByName("URL RespostaE1");
+    const RespTextoE2 = document.getElementsByName("RespostaE2");
+    const RespUrlE2 = document.getElementsByName("URL RespostaE2");
+    const RespTextoE3 = document.getElementsByName("RespostaE3");
+    const RespUrlE3 = document.getElementsByName("URL RespostaE3");
+
     const NivelTitulo = document.getElementsByName("Titulo do Nivel");
     const NivelUrl = document.getElementsByName("URL Nivel");
     const NivelDesc = document.getElementsByName("Descrição");
@@ -212,13 +232,43 @@ function AgruparInfoQuizz() {
         
     }
 
-    for (let i = 0; i < RespTexto.length; i++) {
-        ArrayRespText.push(RespTexto[i].value);
+    for (let i = 0; i < RespTextoC.length; i++) {
+        ArrayRespTextC.push(RespTextoC[i].value);
         
     }
 
-    for (let i = 0; i < RespUrl.length; i++) {
-        ArrayRespUrl.push(RespUrl[i].value);
+    for (let i = 0; i < RespUrlC.length; i++) {
+        ArrayRespUrlC.push(RespUrlC[i].value);
+        
+    }
+
+    for (let i = 0; i < RespTextoE1.length; i++) {
+        ArrayRespTextE1.push(RespTextoE1[i].value);
+        
+    }
+
+    for (let i = 0; i < RespUrlE1.length; i++) {
+        ArrayRespUrlE1.push(RespUrlE1[i].value);
+        
+    }
+
+    for (let i = 0; i < RespTextoE2.length; i++) {
+        ArrayRespTextE2.push(RespTextoE2[i].value);
+        
+    }
+
+    for (let i = 0; i < RespUrlE2.length; i++) {
+        ArrayRespUrlE2.push(RespUrlE2[i].value);
+        
+    }
+
+    for (let i = 0; i < RespTextoE3.length; i++) {
+        ArrayRespTextE3.push(RespTextoE3[i].value);
+        
+    }
+
+    for (let i = 0; i < RespUrlE3.length; i++) {
+        ArrayRespUrlE3.push(RespUrlE3[i].value);
         
     }
 
@@ -258,23 +308,23 @@ function EnviarQuizz() {
                 color: ArrayCorPerg[0],
                 answers: [
                     {
-                        text: ArrayRespText[0],
-                        image: ArrayRespUrl[0],
+                        text: ArrayRespTextC[0],
+                        image: ArrayRespUrlC[0],
                         isCorrectAnswer: true
                     },
                     {
-                        text: ArrayRespText[1],
-                        image: ArrayRespUrl[1],
+                        text: ArrayRespTextE1[0],
+                        image: ArrayRespUrlE1[0],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[2],
-                        image: ArrayRespUrl[2],
+                        text: ArrayRespTextE2[0],
+                        image: ArrayRespUrlE2[0],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[3],
-                        image: ArrayRespUrl[3],
+                        text: ArrayRespTextE3[0],
+                        image: ArrayRespUrlE3[0],
                         isCorrectAnswer: false
                     }
                 ]
@@ -285,23 +335,23 @@ function EnviarQuizz() {
                 color: ArrayCorPerg[1],
                 answers: [
                     {
-                        text: ArrayRespText[4],
-                        image: ArrayRespUrl[4],
+                        text: ArrayRespTextC[1],
+                        image: ArrayRespUrlC[1],
                         isCorrectAnswer: true
                     },
                     {
-                        text: ArrayRespText[5],
-                        image: ArrayRespUrl[5],
+                        text: ArrayRespTextE1[1],
+                        image: ArrayRespUrlE1[1],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[6],
-                        image: ArrayRespUrl[6],
+                        text: ArrayRespTextE2[1],
+                        image: ArrayRespUrlE2[1],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[7],
-                        image: ArrayRespUrl[7],
+                        text: ArrayRespTextE3[1],
+                        image: ArrayRespUrlE3[1],
                         isCorrectAnswer: false
                     }
                 ]
@@ -312,23 +362,23 @@ function EnviarQuizz() {
                 color: ArrayCorPerg[2],
                 answers: [
                     {
-                        text: ArrayRespText[8],
-                        image: ArrayRespUrl[8],
+                        text: ArrayRespTextC[2],
+                        image: ArrayRespUrlC[2],
                         isCorrectAnswer: true
                     },
                     {
-                        text: ArrayRespText[9],
-                        image: ArrayRespUrl[9],
+                        text: ArrayRespTextE1[2],
+                        image: ArrayRespUrlE1[2],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[10],
-                        image: ArrayRespUrl[10],
+                        text: ArrayRespTextE2[2],
+                        image: ArrayRespUrlE2[2],
                         isCorrectAnswer: false
                     },
                     {
-                        text: ArrayRespText[11],
-                        image: ArrayRespUrl[11],
+                        text: ArrayRespTextE3[2],
+                        image: ArrayRespUrlE3[2],
                         isCorrectAnswer: false
                     }
                 ]
