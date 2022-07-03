@@ -245,9 +245,11 @@ function verificarResposta(resposta) {
 
 function reiniciarQuizz() {
     renderizarPagina();
+    window.scrollTo(0, 0)
 }
 
 function voltarHome() {
     document.querySelector(".ResponderQuiz").classList.add("hidden");
     document.querySelector(".corpo-inicioQuizz").classList.remove("hidden");
+    window.scrollTo(0, 0)
 }
