@@ -178,7 +178,7 @@ function FinalizarQuizz() {
         <img src="${UrlQuizz}">
         <div>${TituloQuizz}</div>
     </div>
-    <div class="botao-reiniciar" onclick="entrarNoQuizz(this)">Acessar Quizz</div>
+    <div class="botao-reiniciar" onclick="entrarNoSeuQuizz(this)">Acessar Quizz</div>
     <div class="botao-voltar" onclick="ReloadPage()">Volte para home</div>`;
 
 }
@@ -199,8 +199,8 @@ let ArrayNivelDesc = [];
 let ArrayNivelPorc = [];
 
 let ArrayQuizz = {
-    title: TituloQuizz,
-    image: UrlQuizz,
+    title: "",
+    image: "",
     questions: [],
     levels: []
 }
@@ -297,6 +297,58 @@ function AgruparInfoQuizz() {
 }
 
 function EnviarQuizz() {
+
+    for (let i = 0; i < PerguntasQuizz; i++) {
+        ArrayQuizz.questions.push({});
+        
+    }
+
+    for (let i = 0; i < NiveisQuizz; i++) {
+        ArrayQuizz.levels.push({});
+        
+    }
+
+    for (let i = 0; i < PerguntasQuizz; i++) {
+        ArrayQuizz.questions[i] = {
+            title: ArrayPergTit[i],
+            color: ArrayCorPerg[i],
+            answers: [
+                {
+                    text: ArrayRespTextC[i],
+                    image: ArrayRespUrlC[i],
+                    isCorrectAnswer: true
+                },
+                {
+                    text: ArrayRespTextE1[i],
+                    image: ArrayRespUrlE1[i],
+                    isCorrectAnswer: false
+                },
+                {
+                    text: ArrayRespTextE2[i],
+                    image: ArrayRespUrlE2[i],
+                    isCorrectAnswer: false
+                },
+                {
+                    text: ArrayRespTextE3[i],
+                    image: ArrayRespUrlE3[i],
+                    isCorrectAnswer: false
+                }
+            ]
+        }
+    }
+
+    for (let i = 0; i < NiveisQuizz; i++) {
+        ArrayQuizz.levels[i] = {
+            title: ArrayNivelTit[i],
+            image: ArrayNivelUrl[i],
+            text: ArrayNivelDesc[i],
+            minValue: ArrayNivelPorc[i]
+        }
+        
+    }
+
+    ArrayQuizz.title = TituloQuizz;
+    ArrayQuizz.image = UrlQuizz;
 
     QuizzCRIADO = {
 
@@ -406,7 +458,7 @@ function EnviarQuizz() {
 
     }
 
-    const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes', QuizzCRIADO);
+    const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes', ArrayQuizz);
     promessa.then(MostrarQuizz);
 
 }
@@ -439,4 +491,12 @@ function BackHome() {
 
 function ReloadPage() {
     window.location.reload();
+}
+
+function entrarNoSeuQuizz(elemento){
+    quizz = ArrayQuizz;
+
+    reiniciarQuizz();
+    document.querySelector(".Pronto-Quizz").classList.add("hidden");
+    document.querySelector(".ResponderQuiz").classList.remove("hidden");
 }
