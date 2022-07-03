@@ -111,10 +111,20 @@ let quizz = {
 let acertos = 0;
 let level = { levelAlcançado: quizz.levels[0], acertosAlcançado: acertos };
 let responderQuiz = document.querySelector(".ResponderQuiz");
+let indiciePerguntas;
+let indicieRespotas;
+
 renderizarPagina();
 
 
+function comparador() {
+    return Math.random() - 0.5;
+}
+
 function renderizarPagina() {
+    indiciePerguntas = [quizz.questions.length];
+
+
     acertos = 0;
     level = { levelAlcançado: quizz.levels[0], acertosAlcançado: acertos }
     responderQuiz.innerHTML =
@@ -125,7 +135,7 @@ function renderizarPagina() {
 
     for (let i = 0; i < quizz.questions.length; i++) {
         responderQuiz.innerHTML +=
-            `<div class="corpo-pergunta">
+            `<div class="corpo-pergunta hidden">
                     <div></div>
                     <div class="alternativa" onclick="selecionarResposta(this)">
                             <img>
@@ -147,8 +157,8 @@ function renderizarPagina() {
     }
 
 
-
-    let element = document.querySelector(".imgTopo :nth-child(1)");
+    let element = document.querySelector(".corpo-pergunta").classList.remove("hidden");
+    element = document.querySelector(".imgTopo :nth-child(1)");
     element.src = quizz.image;
     element = document.querySelector(".imgTopo :nth-child(2)");
     element.innerHTML = quizz.title;
@@ -156,14 +166,23 @@ function renderizarPagina() {
         element = document.querySelectorAll(".corpo-pergunta >:nth-child(1)");
         element[i].innerHTML = quizz.questions[i].title;
         element[i].style.backgroundColor = quizz.questions[i].color;
+        indicieRespotas = [quizz.questions[i].length];
 
-        numeroDePerguntas = quizz.questions[i].answers.length;
+        numeroDeRespostas = quizz.questions[i].answers.length;
 
-        for (let j = 0; j < numeroDePerguntas; j++) {
+        for (let j = 0; j < quizz.questions[i].answers.length; j++) {
+            indicieRespotas[j] = j;
+        }
+        indicieRespotas = indicieRespotas.sort(comparador);
+        indiciePerguntas[i] = indicieRespotas;
+        console.log(indiciePerguntas)
+
+
+        for (let j = 0; j < numeroDeRespostas; j++) {
             element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(1)`);
-            element[i].src = quizz.questions[i].answers[j].image;
+            element[i].src = quizz.questions[i].answers[indicieRespotas[j]].image;
             element = document.querySelectorAll(`.corpo-pergunta >:nth-child(${2 + j}) :nth-child(2)`);
-            element[i].innerHTML = quizz.questions[i].answers[j].text;
+            element[i].innerHTML = quizz.questions[i].answers[indicieRespotas[j]].text;
         }
     }
 
@@ -180,14 +199,20 @@ function renderizarPagina() {
     }
 }
 
+function aparecerQuestao() {
+    element = document.querySelector(".corpo-pergunta.hidden");
+    if (element !== null) element.classList.remove("hidden");
+}
 
 function selecionarResposta(resposta) {
+    setTimeout(aparecerQuestao, 2000);
     element = resposta.parentNode.querySelector("div").innerHTML.toString();
     if (resposta.parentNode.querySelector(".respondido") === null) {
         for (let i = 0; i < quizz.questions.length; i++) {
             if (quizz.questions[i].title.toString() === element) {
                 for (let j = 0; j < quizz.questions[i].answers.length; j++) {
-                    if (quizz.questions[i].answers[j].isCorrectAnswer) {
+                    console.log();
+                    if (quizz.questions[i].answers[indiciePerguntas[i][j]].isCorrectAnswer) {
                         element = resposta.parentNode.querySelectorAll(".alternativa");
                         element[j].classList.add("letra-verde");
                         if (element[j].querySelector(".fundo-branco") === null) {
@@ -215,24 +240,37 @@ function verificarResposta(resposta) {
     if (resposta.classList.contains("letra-verde")) {
         acertos++;
     }
+
+    console.log(acertos);
     let respostas = document.querySelectorAll(".respondido").length;
     let perguntas = quizz.questions.length;
     if (respostas === perguntas) {
-        level.acertosAlcançado = ((acertos / perguntas) * 100).toFixed(2);
+
+        level.acertosAlcançado = Math.ceil(((acertos / perguntas) * 100));
+        level.levelAlcançado.minValue = 0;
+
         for (let i = 0; i < quizz.levels.length; i++) {
-            if (level.acertosAlcançado > quizz.levels[i].minValue) {
-                level.levelAlcançado = quizz.levels[i];
+            console.log(level.acertosAlcançado, quizz.levels[i].minValue);
+            console.log(level.levelAlcançado.minValue, quizz.levels[i].minValue)
+            console.log(level.acertosAlcançado >= Number(quizz.levels[i].minValue));
+            
+            console.log(level.levelAlcançado.minValue < quizz.levels[i].minValue)
+
+            if (Number(level.acertosAlcançado) >= Number(quizz.levels[i].minValue)) {
+                if (Number(level.levelAlcançado.minValue) < Number(quizz.levels[i].minValue)) {
+                    level.levelAlcançado = quizz.levels[i];
+                }
             }
         }
 
         responderQuiz.innerHTML +=
-            `<div class="corpo-acertos">
+            `<div class="corpo-acertos hidden">
                 <div></div>
                 <img>
                 <div></div>
             </div>
-            <div class="botao-reiniciar" onclick="reiniciarQuizz()">Reiniciar Quizz</div>
-            <div class="botao-voltar" onclick="voltarHome()">Volte para home</div>`;
+            <div class="botao-reiniciar hidden" onclick="reiniciarQuizz()">Reiniciar Quizz</div>
+            <div class="botao-voltar hidden" onclick="voltarHome()">Volte para home</div>`;
 
         element = document.querySelector(".corpo-acertos :nth-child(1)");
         element.innerHTML = `${level.acertosAlcançado}% de acerto: ${level.levelAlcançado.title}`
@@ -240,7 +278,14 @@ function verificarResposta(resposta) {
         element.src = level.levelAlcançado.image;
         element = document.querySelector(".corpo-acertos :nth-child(3)");
         element.innerHTML = level.levelAlcançado.text;
+        setTimeout(aparecerResposta, 2000);
     }
+}
+
+function aparecerResposta() {
+    document.querySelector(".corpo-acertos").classList.remove("hidden");
+    document.querySelector(".botao-reiniciar.hidden").classList.remove("hidden");
+    document.querySelector(".botao-voltar.hidden").classList.remove("hidden");
 }
 
 function reiniciarQuizz() {

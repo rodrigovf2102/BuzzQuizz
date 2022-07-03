@@ -63,8 +63,7 @@ function renderizarUserQuizzes(ms) {
     QuizzUser.innerHTML += `<div class="ImagemQuizz" onclick="entrarNoQuizz(this)">
     <img src="${dados.image}">
     <div>${dados.title}</div>
-</div>`
-
+</div>`;
 }
 
 function entrarNoQuizz(elemento){
