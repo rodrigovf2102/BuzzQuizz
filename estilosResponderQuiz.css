@@ -151,6 +151,7 @@
     font-size: 21px;
     line-height: 25px;
     color: #FFF5F4;
+    cursor: pointer;
 }
 
 .botao-voltar {
@@ -167,6 +168,7 @@
     align-items: center;
     margin-bottom: 85px;
     color: #818181;
+    cursor: pointer;
 }
 
 .hidden {

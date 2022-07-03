@@ -26,16 +26,16 @@ function renderizarTodosQuizzes(){
 }
 
 function checkMeusQuizzes() {
-    const Armaz = localStorage.getItem("MeusQuizzes");
+    const ArmazLoc = localStorage.getItem("MeusQuizzes");
     const UserQuizzes = document.querySelector('.SeusQuizzCriado');
 
-    if (Armaz) {
+    if (ArmazLoc) {
         document.querySelector('.SeusQuizzCriado').classList.remove('hidden');
         document.querySelector('.SeusQuizz').classList.add('hidden');
 
         UserQuizzes.innerHTML = `<div class="SeusQuizzCriadoTopo">
         <div>Seus Quizzes</div>
-        <div>+</div>
+        <div class="pointer" onclick="CriarQuizz()">+</div>
     </div>`;
 
         PegarUserQuizzes(ArmazLoc);
@@ -49,7 +49,7 @@ function PegarUserQuizzes(ArmazLoc) {
     ArmazLoc = JSON.parse(ArmazLoc);
     for (let i = 0; i < ArmazLoc.length; i++) {
     
-        const resposta = axios.get(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes${ArmazLoc[i]}`);
+        const resposta = axios.get(`https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes/${ArmazLoc[i]}`);
         resposta.then(renderizarUserQuizzes);
         
     }
@@ -60,7 +60,7 @@ function renderizarUserQuizzes(ms) {
     const QuizzUser = document.querySelector('.SeusQuizzCriado');
     const dados = ms.data;
 
-    QuizzUser.innerHTML += `<div class="ImagemQuizz">
+    QuizzUser.innerHTML += `<div class="ImagemQuizz" onclick="entrarNoQuizz(this)">
     <img src="${dados.image}">
     <div>${dados.title}</div>
 </div>`
