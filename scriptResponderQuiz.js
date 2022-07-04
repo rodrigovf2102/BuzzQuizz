@@ -175,7 +175,6 @@ function renderizarPagina() {
         }
         indicieRespotas = indicieRespotas.sort(comparador);
         indiciePerguntas[i] = indicieRespotas;
-        console.log(indiciePerguntas)
 
 
         for (let j = 0; j < numeroDeRespostas; j++) {
@@ -211,7 +210,7 @@ function selecionarResposta(resposta) {
         for (let i = 0; i < quizz.questions.length; i++) {
             if (quizz.questions[i].title.toString() === element) {
                 for (let j = 0; j < quizz.questions[i].answers.length; j++) {
-                    console.log();
+
                     if (quizz.questions[i].answers[indiciePerguntas[i][j]].isCorrectAnswer) {
                         element = resposta.parentNode.querySelectorAll(".alternativa");
                         element[j].classList.add("letra-verde");
@@ -241,7 +240,6 @@ function verificarResposta(resposta) {
         acertos++;
     }
 
-    console.log(acertos);
     let respostas = document.querySelectorAll(".respondido").length;
     let perguntas = quizz.questions.length;
     if (respostas === perguntas) {
@@ -250,11 +248,6 @@ function verificarResposta(resposta) {
         level.levelAlcançado.minValue = 0;
 
         for (let i = 0; i < quizz.levels.length; i++) {
-            console.log(level.acertosAlcançado, quizz.levels[i].minValue);
-            console.log(level.levelAlcançado.minValue, quizz.levels[i].minValue)
-            console.log(level.acertosAlcançado >= Number(quizz.levels[i].minValue));
-            
-            console.log(level.levelAlcançado.minValue < quizz.levels[i].minValue)
 
             if (Number(level.acertosAlcançado) >= Number(quizz.levels[i].minValue)) {
                 if (Number(level.levelAlcançado.minValue) < Number(quizz.levels[i].minValue)) {

@@ -85,6 +85,7 @@
     border: 1px dashed #EC362D;
     border-radius: 50px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .TodosOsQuizz {
     width: 80%;
@@ -113,6 +114,7 @@
     position: absolute;
     object-fit: cover;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .ImagemQuizz div {
