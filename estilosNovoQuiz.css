@@ -6,12 +6,16 @@ body {
 header h1 {
     cursor: pointer;
 }
+header{
+    width: 100%;
+}
 
 .hidden {
     display: none;
 }
 
 .CriarQuizz {
+    width: 90%;
     max-width: 600px;
     margin: 140px auto;
     display: flex;
