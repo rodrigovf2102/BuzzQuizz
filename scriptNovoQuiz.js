@@ -68,13 +68,13 @@ function CriarPerguntas() {
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="RespostaE2" required minlength="1" placeholder="Resposta incorreta 2">
+            <input type="text" name="RespostaE2" required minlength="0" placeholder="Resposta incorreta 2">
             <input type="url" name="URL RespostaE2" placeholder="URL da imagem 2">
         </div>
         <br>
         <br>
         <div class="setup perguntas">
-            <input type="text" name="RespostaE3" required minlength="1" placeholder="Resposta incorreta 3">
+            <input type="text" name="RespostaE3" required minlength="0" placeholder="Resposta incorreta 3">
             <input type="url" name="URL RespostaE3" placeholder="URL da imagem 3">
         </div>
     </div>`
@@ -88,12 +88,26 @@ function CriarPerguntas() {
 
 function ValidaçãoPerguntas() {
     let Inputs = document.querySelectorAll(".Perg-Quizz input");
+    const RespTextoE2 = document.getElementsByName("RespostaE2");
+    const RespUrlE2 = document.getElementsByName("URL RespostaE2");
+    const RespTextoE3 = document.getElementsByName("RespostaE3");
+    const RespUrlE3 = document.getElementsByName("URL RespostaE3");
     let ValidInput = 0;
 
     for (let i = 0; i < Inputs.length; i++) {
         if(Inputs[i].checkValidity()) {
             ValidInput++;
-        }        
+        }       
+        
+    }
+
+    for (let i = 0; i < RespTextoE2.length; i++) {
+        if(RespTextoE2[i].value === '' && RespUrlE2[i].value === '') {
+            ValidInput++;
+        }
+        if(RespTextoE3[i].value === '' && RespUrlE3[i].value === '') {
+            ValidInput++;
+        } 
         
     }
 
@@ -309,32 +323,83 @@ function EnviarQuizz() {
     }
 
     for (let i = 0; i < PerguntasQuizz; i++) {
-        ArrayQuizz.questions[i] = {
-            title: ArrayPergTit[i],
-            color: ArrayCorPerg[i],
-            answers: [
-                {
-                    text: ArrayRespTextC[i],
-                    image: ArrayRespUrlC[i],
-                    isCorrectAnswer: true
-                },
-                {
-                    text: ArrayRespTextE1[i],
-                    image: ArrayRespUrlE1[i],
-                    isCorrectAnswer: false
-                },
-                {
-                    text: ArrayRespTextE2[i],
-                    image: ArrayRespUrlE2[i],
-                    isCorrectAnswer: false
-                },
-                {
-                    text: ArrayRespTextE3[i],
-                    image: ArrayRespUrlE3[i],
-                    isCorrectAnswer: false
-                }
-            ]
+
+        if (ArrayRespTextE2[i] === '' && ArrayRespTextE3[i] === '') {
+            ArrayQuizz.questions[i] = {
+                title: ArrayPergTit[i],
+                color: ArrayCorPerg[i],
+                answers: [
+                    {
+                        text: ArrayRespTextC[i],
+                        image: ArrayRespUrlC[i],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespTextE1[i],
+                        image: ArrayRespUrlE1[i],
+                        isCorrectAnswer: false
+                    }
+                    
+                ]
+            }
         }
+
+        else if(ArrayRespTextE2[i] !== '' && ArrayRespTextE3[i] === '') {
+            ArrayQuizz.questions[i] = {
+                title: ArrayPergTit[i],
+                color: ArrayCorPerg[i],
+                answers: [
+                    {
+                        text: ArrayRespTextC[i],
+                        image: ArrayRespUrlC[i],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespTextE1[i],
+                        image: ArrayRespUrlE1[i],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespTextE2[i],
+                        image: ArrayRespUrlE2[i],
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+
+        }
+
+        else {
+
+            ArrayQuizz.questions[i] = {
+                title: ArrayPergTit[i],
+                color: ArrayCorPerg[i],
+                answers: [
+                    {
+                        text: ArrayRespTextC[i],
+                        image: ArrayRespUrlC[i],
+                        isCorrectAnswer: true
+                    },
+                    {
+                        text: ArrayRespTextE1[i],
+                        image: ArrayRespUrlE1[i],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespTextE2[i],
+                        image: ArrayRespUrlE2[i],
+                        isCorrectAnswer: false
+                    },
+                    {
+                        text: ArrayRespTextE3[i],
+                        image: ArrayRespUrlE3[i],
+                        isCorrectAnswer: false
+                    }
+                ]
+            }
+        }
+
+        
     }
 
     for (let i = 0; i < NiveisQuizz; i++) {
@@ -349,114 +414,6 @@ function EnviarQuizz() {
 
     ArrayQuizz.title = TituloQuizz;
     ArrayQuizz.image = UrlQuizz;
-
-    QuizzCRIADO = {
-
-        title: TituloQuizz,
-        image: UrlQuizz,
-        questions: [
-            {
-                title: ArrayPergTit[0],
-                color: ArrayCorPerg[0],
-                answers: [
-                    {
-                        text: ArrayRespTextC[0],
-                        image: ArrayRespUrlC[0],
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: ArrayRespTextE1[0],
-                        image: ArrayRespUrlE1[0],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE2[0],
-                        image: ArrayRespUrlE2[0],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE3[0],
-                        image: ArrayRespUrlE3[0],
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-
-            {
-                title: ArrayPergTit[1],
-                color: ArrayCorPerg[1],
-                answers: [
-                    {
-                        text: ArrayRespTextC[1],
-                        image: ArrayRespUrlC[1],
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: ArrayRespTextE1[1],
-                        image: ArrayRespUrlE1[1],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE2[1],
-                        image: ArrayRespUrlE2[1],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE3[1],
-                        image: ArrayRespUrlE3[1],
-                        isCorrectAnswer: false
-                    }
-                ]
-            },
-
-            {
-                title: ArrayPergTit[2],
-                color: ArrayCorPerg[2],
-                answers: [
-                    {
-                        text: ArrayRespTextC[2],
-                        image: ArrayRespUrlC[2],
-                        isCorrectAnswer: true
-                    },
-                    {
-                        text: ArrayRespTextE1[2],
-                        image: ArrayRespUrlE1[2],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE2[2],
-                        image: ArrayRespUrlE2[2],
-                        isCorrectAnswer: false
-                    },
-                    {
-                        text: ArrayRespTextE3[2],
-                        image: ArrayRespUrlE3[2],
-                        isCorrectAnswer: false
-                    }
-                ]
-            }
-
-        ],
-
-        levels: [
-            {
-                title: ArrayNivelTit[0],
-                image: ArrayNivelUrl[0],
-                text: ArrayNivelDesc[0],
-                minValue: ArrayNivelPorc[0]
-            },
-
-            {
-                title: ArrayNivelTit[1],
-                image: ArrayNivelUrl[1],
-                text: ArrayNivelDesc[1],
-                minValue: ArrayNivelPorc[1]
-            }
-
-        ]
-
-
-    }
 
     const promessa = axios.post('https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes', ArrayQuizz);
     promessa.then(MostrarQuizz);
