@@ -286,6 +286,7 @@ function aparecerResposta() {
     document.querySelector(".corpo-acertos").classList.remove("hidden");
     document.querySelector(".botao-reiniciar.hidden").classList.remove("hidden");
     document.querySelector(".botao-voltar.hidden").classList.remove("hidden");
+    window.scrollTo(0, document.body.scrollHeight);
 }
 
 function reiniciarQuizz() {

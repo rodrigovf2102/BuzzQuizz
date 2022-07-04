@@ -491,6 +491,7 @@ function BackHome() {
 
 function ReloadPage() {
     window.location.reload();
+    window.scrollTo(0, 0);
 }
 
 function entrarNoSeuQuizz(elemento){
